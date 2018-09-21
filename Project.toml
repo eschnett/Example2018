@@ -2,3 +2,6 @@ name = "Example2018"
 uuid = "0c1e88ac-b847-11e8-18a7-f5d4a208d41d"
 authors = ["Erik Schnetter <schnetter@gmail.com>"]
 version = "0.1.0"
+
+[deps]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"

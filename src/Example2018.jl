@@ -34,9 +34,15 @@ function evaluate(p::Polynomial, x)
     sum(c * x^(i-1) for (i,c) in enumerate(p.coeffs))
 end
 
+function Base. ==(p::Polynomial, q::Polynomial)
+    d = p - q
+    # all(c -> c==0, d.coeffs)
+    all(d.coeffs .== 0)
+end
+
 function Base. +(p::Polynomial, q::Polynomial)
     l = max(length(p.coeffs), length(q.coeffs))
-    rcoeffs = zeros(l)
+    rcoeffs = zeros(eltype(p.coeffs), l)
     for (i,c) in enumerate(p.coeffs)
         rcoeffs[i] += c
     end
@@ -50,6 +56,14 @@ function Base. *(a, p::Polynomial)
     Polynomial(map(x->a*x, p.coeffs))
 end
 Base. *(p::Polynomial, a) = a*p
+
+function Base. -(p::Polynomial)
+    (-1) * p
+end
+
+function Base. -(p::Polynomial, q::Polynomial)
+    p + (-q)
+end
 
 export deriv
 function deriv(p::Polynomial)
